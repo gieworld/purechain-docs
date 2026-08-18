@@ -1,0 +1,14 @@
+# MkDocs build output
+/site/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Internal planning documents — NOT for the public repo.
+# These stay on local disk. Keep them out of a repo destined to be public:
+# they contain open-sourcing strategy and the security pre-flight checklist.
+/OPEN_SOURCE_STRATEGY.md
+/PROPOSAL.md

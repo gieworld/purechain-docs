@@ -1,0 +1,6 @@
+# Normalize line endings — keeps diffs clean across Windows/Linux contributors.
+* text=auto eol=lf
+
+# Windows-only files keep CRLF
+*.bat text eol=crlf
+*.cmd text eol=crlf

@@ -1,0 +1,2 @@
+# Docs site dependencies. Install with: pip install -r requirements.txt
+mkdocs-material>=9.5

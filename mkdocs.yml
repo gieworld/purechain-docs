@@ -1,0 +1,101 @@
+site_name: PureChain Docs
+site_description: >-
+  Documentation for PureChain — a Clique PoA, zero-fee (gasless) EVM network
+  built on an auditable fork of go-ethereum v1.13.15.
+# TODO: set these once the repo/site URLs are decided
+# site_url: https://<org>.github.io/purechain-docs/
+# repo_url: https://github.com/<org>/purechain-docs
+# repo_name: <org>/purechain-docs
+# edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  features:
+    - navigation.instant
+    - navigation.tracking
+    - navigation.sections
+    - navigation.top
+    - navigation.footer
+    - toc.follow
+    - content.code.copy
+    - content.code.annotate
+    - search.suggest
+    - search.highlight
+  palette:
+    - media: "(prefers-color-scheme: light)"
+      scheme: default
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/weather-night
+        name: Switch to dark mode
+    - media: "(prefers-color-scheme: dark)"
+      scheme: slate
+      primary: teal
+      accent: teal
+      toggle:
+        icon: material/weather-sunny
+        name: Switch to light mode
+  icon:
+    repo: fontawesome/brands/github
+
+plugins:
+  - search
+
+markdown_extensions:
+  - admonition
+  - attr_list
+  - md_in_html
+  - tables
+  - toc:
+      permalink: true
+  - pymdownx.details
+  - pymdownx.highlight:
+      anchor_linenums: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+  - pymdownx.tabbed:
+      alternate_style: true
+  - pymdownx.emoji:
+      emoji_index: !!python/name:material.extensions.emoji.twemoji
+      emoji_generator: !!python/name:material.extensions.emoji.to_svg
+
+nav:
+  - Home: index.md
+  - Overview:
+      - What is PureChain: 01-overview/what-is-purechain.md
+      - Free gas: 01-overview/free-gas.md
+      - Architecture: 01-overview/architecture.md
+      - FAQ: 01-overview/faq.md
+  - Run your own network:
+      - Overview: 02-run-your-own/index.md
+      - 1. Prerequisites: 02-run-your-own/prerequisites.md
+      - 2. Create the genesis: 02-run-your-own/genesis.md
+      - 3. Start validators: 02-run-your-own/validators.md
+      - 4. Add RPC nodes: 02-run-your-own/rpc-nodes.md
+      - 5. Verify it works: 02-run-your-own/verify.md
+      - Running with Docker: 02-run-your-own/docker.md
+      - Production checklist: 02-run-your-own/production.md
+  - Operating a network:
+      - Operations: 03-operating/operations.md
+      - On-demand sealing: 03-operating/sealing.md
+      - Troubleshooting: 03-operating/troubleshooting.md
+  - The client:
+      - purechain-geth: 04-client/purechain-geth.md
+      - What changed vs upstream: 04-client/consensus-changes.md
+      - Building from source: 04-client/building-from-source.md
+  - Reference:
+      - Chain parameters: 05-reference/chain-params.md
+      - Genesis format: 05-reference/genesis-format.md
+      - Peering: 05-reference/peering.md
+      - Wallets and apps: 05-reference/wallets.md
+  - Tooling:
+      - Explorer: 06-tooling/explorer.md
+      - Faucet: 06-tooling/faucet.md
+  - Join the public network:
+      - Overview: 06-join/index.md
+      - Request node access: 06-join/node-access.md
+      - Validator requirements: 06-join/validator-requirements.md
+      - How to apply: 06-join/validator-apply.md
+  - Contributing: CONTRIBUTING.md
