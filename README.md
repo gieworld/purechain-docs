@@ -47,3 +47,13 @@ automated via `.github/workflows/docs.yml` on push to `main`.
 - Network setup: _TBD_
 - Explorer: _TBD_
 - Faucet: _TBD_
+
+## Licence
+
+**To be announced.** No licence is granted at this time — all rights reserved
+pending a licensing decision. This documentation is published for reference
+during the pre-release period.
+
+The `purechain-geth` client is a fork of
+[go-ethereum](https://github.com/ethereum/go-ethereum) and is licensed
+GPL-3.0 / LGPL-3.0 as upstream.
