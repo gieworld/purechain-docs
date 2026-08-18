@@ -1,12 +1,11 @@
 site_name: PureChain Docs
 site_description: >-
-  Documentation for PureChain — a Clique PoA, zero-fee (gasless) EVM network
-  built on an auditable fork of go-ethereum v1.13.15.
-# TODO: set these once the repo/site URLs are decided
-# site_url: https://<org>.github.io/purechain-docs/
-# repo_url: https://github.com/<org>/purechain-docs
-# repo_name: <org>/purechain-docs
-# edit_uri: edit/main/docs/
+  Documentation for PureChain — a permissioned, free-gas EVM network on Clique
+  PoA with Shanghai/Cancun, built on an auditable fork of go-ethereum v1.13.15.
+site_url: https://gieworld.github.io/purechain-docs/
+repo_url: https://github.com/gieworld/purechain-docs
+repo_name: gieworld/purechain-docs
+edit_uri: edit/main/docs/
 
 theme:
   name: material
@@ -19,6 +18,8 @@ theme:
     - toc.follow
     - content.code.copy
     - content.code.annotate
+    - content.action.edit
+    - content.action.view
     - search.suggest
     - search.highlight
   palette:
