@@ -49,12 +49,23 @@ The script builds the Clique `extradata` layout correctly (32-byte vanity +
 |---|---|---|
 | `chainId` | Your network's ID | **Yes** — pick your own |
 | `zeroBaseFee` | **The free-gas switch** | Only if you want fees |
-| `clique.period` | Block time in seconds | Optional — 5 is a good default |
+| `clique.period` | Block time in seconds | Optional — see note below |
 | `clique.epoch` | Checkpoint interval in blocks | Rarely |
 | `gasLimit` | `0x1c9c380` = 30,000,000 | If you need bigger blocks |
 | `shanghaiTime` / `cancunTime` | `0` = Cancun from genesis | Rarely |
 | `extradata` | Encodes the initial signer set | **Never by hand** |
 | `alloc` | Prefunded accounts | Add yours |
+
+### Choosing `clique.period`
+
+With plain `--mine`, the period is how often an **empty** block is produced when
+nothing is happening — so a short period means a lot of wasted blocks, and `5`
+is a reasonable default.
+
+If you use [on-demand sealing](../03-operating/sealing.md) instead, idle periods
+produce no blocks at all, so a short period costs nothing and gives faster
+confirmation. The public PureChain network runs `period: 1` for exactly this
+reason.
 
 ## Prefunding accounts
 

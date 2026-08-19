@@ -34,7 +34,7 @@ Public RPC nodes should also flatten the gas-price oracle so wallets quote 0:
   directly, or ethers.js / web3 v4.
 - **No replace-by-fee at zero price.** A pending transaction cannot be replaced
   or cancelled when all fees are 0, because the pool requires a strictly higher
-  fee. Rare in practice on a 5-second PoA chain.
+  fee. Rare in practice, since blocks clear in about a second while the network is active.
 - **Contract size is still 24 KB** (EIP-170). Use proxy or library patterns for
   larger contracts.
 

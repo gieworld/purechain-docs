@@ -37,7 +37,7 @@
 |---|---|
 | `shanghaiTime` / `cancunTime` | Timestamp-based activation. `0` = Cancun from genesis |
 | `zeroBaseFee` | **The free-gas switch.** Pins base fee to 0 |
-| `clique.period` | Block time in seconds (`5`) |
+| `clique.period` | Block time in seconds. The public network uses `1` |
 | `clique.epoch` | Checkpoint interval in blocks (`30000`) |
 | `gasLimit` | `0x1c9c380` = 30,000,000 |
 | `extradata` | Encodes the **initial signer set** |

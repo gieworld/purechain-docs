@@ -41,12 +41,21 @@ Contributors only need to edit Markdown files under `docs/`. New pages must be
 added to the `nav:` section of `mkdocs.yml`. Deployment to GitHub Pages is
 automated via `.github/workflows/docs.yml` on push to `main`.
 
-## Quick links (fill in as repos go public)
+## The public network
 
+| | |
+|---|---|
+| RPC | `https://purechainnode.com` |
+| Chain ID | `900520900520` |
+| Symbol | `PCN` |
+| Explorer | https://purechain-explorer.onrender.com/ |
+| Faucet | https://purechain-faucet-frontend.onrender.com/ |
+
+## Quick links
+
+- Docs site: https://gieworld.github.io/purechain-docs/
 - Client (`purechain-geth`): _TBD_
 - Network setup: _TBD_
-- Explorer: _TBD_
-- Faucet: _TBD_
 
 ## Licence
 

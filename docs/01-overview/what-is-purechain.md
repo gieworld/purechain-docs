@@ -33,6 +33,19 @@ same binary at Ethereum mainnet and it behaves exactly like stock geth.
 See [The client](../04-client/purechain-geth.md) and
 [Free gas](free-gas.md).
 
+## The public network
+
+| | |
+|---|---|
+| RPC | `https://purechainnode.com` |
+| Chain ID | `900520900520` |
+| Symbol | `PCN` |
+| Explorer | [purechain-explorer.onrender.com](https://purechain-explorer.onrender.com/) |
+| Faucet | [purechain-faucet-frontend.onrender.com](https://purechain-faucet-frontend.onrender.com/) |
+
+You can also [run your own network](../02-run-your-own/index.md) — that's the
+main path through these docs.
+
 ## Safety model
 
 Free gas means there is **no economic cost to spam**. Protection comes from:
@@ -44,4 +57,4 @@ Free gas means there is **no economic cost to spam**. Protection comes from:
 Fees are not a one-way door — a minimum priority tip can be introduced at any
 time with no fork and no chain reset. See [Free gas](free-gas.md#if-fees-are-ever-needed).
 
-<!-- TODO: production chainId, block time if different from 5s, native token name/symbol, launch date -->
+<!-- TODO: launch date -->

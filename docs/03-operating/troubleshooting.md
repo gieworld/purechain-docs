@@ -46,7 +46,7 @@ accepts it fine. Use JSON-RPC directly or ethers.js / web3 v4. See
 ## A pending transaction can't be cancelled or replaced
 
 Expected at zero fee. Replace-by-fee requires a strictly higher fee, which is
-impossible when everything is 0. On a 5-second chain, transactions clear quickly.
+impossible when everything is 0. Transactions normally clear within a second or two while the network is active.
 
 ## No peers
 

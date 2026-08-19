@@ -1,23 +1,52 @@
 # Chain parameters
 
+Live values for the public PureChain network.
+
+## Connect
+
+| | |
+|---|---|
+| **RPC (HTTP)** | `https://purechainnode.com` |
+| **Chain ID** | `900520900520` (`0xd1ab3a77a8`) |
+| **Network ID** | `900520900520` |
+| **Currency symbol** | `PCN` |
+| **Decimals** | 18 |
+| **Block explorer** | [purechain-explorer.onrender.com](https://purechain-explorer.onrender.com/) |
+| **Faucet** | [purechain-faucet-frontend.onrender.com](https://purechain-faucet-frontend.onrender.com/) |
+
+See [Wallets and apps](wallets.md) to add the network to MetaMask.
+
+## Consensus and execution
+
 | Parameter | Value |
 |---|---|
-| Chain ID | <!-- TODO: production value --> |
-| Network ID | same as chain ID |
 | Consensus | Clique Proof-of-Authority |
-| Block time (`clique.period`) | 5 s |
-| Epoch (`clique.epoch`) | 30,000 blocks |
+| Block time (`clique.period`) | **1 s while active** — see below |
 | Base fee | **0** (`zeroBaseFee: true`) |
-| Gas limit | 30,000,000 (`0x1c9c380`) |
-| EVM version | Shanghai + Cancun (from genesis) |
-| Client | `purechain-geth` — go-ethereum v1.13.15 fork |
-| Native token | <!-- TODO: name / symbol / decimals --> |
+| `eth_gasPrice` | `0x0` |
+| Gas limit | 30,000,000 |
+| EVM version | Shanghai + Cancun |
+| Client | `purechain-geth` v1.13.15-stable |
+
+## Block production is on-demand
+
+Blocks are produced roughly **every second while the network is active**, and
+**sealing pauses when the network is idle** — so there are no empty blocks during
+quiet periods, and gaps between bursts of activity are normal and expected.
+
+Observed on the live chain: 25 consecutive blocks one second apart during
+activity, and a 25-block span covering several hours across an idle period.
+
+!!! tip "Don't assume a fixed block interval"
+    If your application polls for new blocks or times out waiting for one, handle
+    idle gaps. A quiet chain is healthy, not stalled. See
+    [On-demand sealing](../03-operating/sealing.md).
 
 ## Active forks
 
-All pre-Shanghai forks activate at block `0`. Shanghai and Cancun activate by
-**timestamp** (`shanghaiTime` / `cancunTime`), both `0` on a fresh chain — so the
-network is Cancun from genesis.
+All pre-Shanghai forks activate at block `0`; Shanghai and Cancun activate by
+timestamp and are live from genesis. Confirmed on the live chain — blocks carry
+`withdrawalsRoot` and `parentBeaconBlockRoot`.
 
 Available: PUSH0, transient storage (`TSTORE`/`TLOAD`), EIP-4788 beacon roots,
 and blob-carrying transaction plumbing.
@@ -26,22 +55,13 @@ Unchanged from Ethereum: the **24 KB contract size limit** (EIP-170).
 
 ## Node profile
 
-The deployment runs nodes with:
+Public RPC nodes run:
 
 ```
 --syncmode full --gcmode archive --snapshot=false --cache 256 --maxpeers 25
---txpool.pricelimit 0 --miner.gasprice 0
+--nodiscover --txpool.pricelimit 0 --miner.gasprice 0
+--gpo.ignoreprice 0 --gpo.maxprice 1000000000 --gpo.percentile 0
+--http.api eth,net,web3
 ```
 
-Public RPC nodes additionally flatten the gas-price oracle
-(`--gpo.ignoreprice 0 --gpo.maxprice 1000000000 --gpo.percentile 0`) and expose
-`eth,net,web3` only.
-
-## Public endpoints
-
-| | |
-|---|---|
-| RPC (HTTP) | <!-- TODO --> |
-| RPC (WS) | <!-- TODO --> |
-| Explorer | <!-- TODO --> |
-| Faucet | <!-- TODO --> |
+<!-- TODO: publish WebSocket endpoint if one is offered -->

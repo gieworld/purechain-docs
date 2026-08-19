@@ -39,10 +39,21 @@ geth no longer supports.
 | **Consensus** | Clique Proof-of-Authority |
 | **EVM** | Shanghai + Cancun — PUSH0, transient storage, EIP-4788 |
 | **Fees** | Zero — no base fee, no tip |
-| **Block time** | 5 s (configurable) |
+| **Block time** | ~1 s while active; sealing pauses when idle |
 | **Client** | `purechain-geth`, a patch set on go-ethereum v1.13.15 |
 | **Tooling** | MetaMask, ethers, Hardhat, block explorers — all work unmodified |
-| **Licence** | GPL-3.0 / LGPL-3.0, as upstream go-ethereum |
+
+## Connect to the public network
+
+| | |
+|---|---|
+| RPC | `https://purechainnode.com` |
+| Chain ID | `900520900520` |
+| Symbol | `PCN` |
+| Explorer | [purechain-explorer.onrender.com](https://purechain-explorer.onrender.com/) |
+| Faucet | [purechain-faucet-frontend.onrender.com](https://purechain-faucet-frontend.onrender.com/) |
+
+[Add it to MetaMask →](05-reference/wallets.md)
 
 ## Why this exists
 
