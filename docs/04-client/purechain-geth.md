@@ -7,6 +7,9 @@ It is kept deliberately close to upstream, so the client behaves like the geth
 operators already know — same CLI, same JSON-RPC, same tooling (MetaMask, ethers,
 Hardhat, block explorers).
 
+**Source:** [github.com/gieworld/purechain_testnet](https://github.com/gieworld/purechain_testnet) ·
+**[Download a release](download.md)**
+
 ## Why the fork exists
 
 PureChain needs a combination stock geth no longer supports: a **Clique (PoA)**
@@ -30,7 +33,9 @@ See [What changed vs upstream](consensus-changes.md).
   forward onto. This is not a divergent living fork.
 - **Patch set + CHANGELOG.** Every consensus-affecting hunk is mapped.
 - **Selective backports.** Upstream fixes from later releases are evaluated and
-  adopted individually; see `docs/upstream-backports.md` in the client repo.
+  adopted individually — including security fixes to code reachable before
+  authentication. The full adoption matrix, and what was rejected and why, is in
+  [`docs/upstream-backports.md`](https://github.com/gieworld/purechain_testnet/blob/main/docs/upstream-backports.md).
 
 ## Licensing and attribution
 

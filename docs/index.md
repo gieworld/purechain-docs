@@ -22,7 +22,7 @@ geth no longer supports.
 
 -   :material-git: **The client**
 
-    Why the fork exists and
+    [Download a release](04-client/download.md), or read why the fork exists and
     [what changed vs upstream](04-client/consensus-changes.md).
 
 -   :material-account-group: **Join the public network**

@@ -1,5 +1,18 @@
 # Building purechain-geth from source
 
+!!! tip "You may not need to build anything"
+    Prebuilt static binaries for linux/amd64 and linux/arm64 are published on
+    the [releases page](https://github.com/gieworld/purechain_testnet/releases/latest).
+    See [Download and install](download.md). Build from source when you want to
+    verify the release, target another platform, or run a modified client.
+
+Clone the client repository first:
+
+```bash
+git clone https://github.com/gieworld/purechain_testnet.git
+cd purechain_testnet
+```
+
 ## Prerequisites
 
 - Go 1.19 or later, and a C compiler (only needed for CGO builds).
@@ -17,8 +30,18 @@ CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o build/bin/geth-linux-amd64 ./c
 # -> 1.13.15-stable, Git Commit = your HEAD
 ```
 
-The `CHANGELOG.md` **"Release Binary (linux/amd64)"** section records the exact
-commit of the current deployed build — check your `Git Commit` against it.
+To reproduce a published release exactly, check out its tag first — the binary
+will then stamp the same commit the release reports:
+
+```bash
+git checkout v1.0.0
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -trimpath -o geth ./cmd/geth
+./geth version   # Git Commit must match the release
+```
+
+!!! warning "Build from a normal checkout, not a `git worktree`"
+    On Go 1.21 a worktree build silently omits the VCS stamp, leaving
+    `Git Commit` empty — an artifact nobody can trace back to source.
 
 ## Alternative — `make`
 

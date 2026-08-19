@@ -84,6 +84,7 @@ nav:
       - Troubleshooting: 03-operating/troubleshooting.md
   - The client:
       - purechain-geth: 04-client/purechain-geth.md
+      - Download and install: 04-client/download.md
       - What changed vs upstream: 04-client/consensus-changes.md
       - Building from source: 04-client/building-from-source.md
   - Reference:
