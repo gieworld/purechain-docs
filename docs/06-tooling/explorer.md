@@ -7,7 +7,7 @@ Browse blocks, transactions, addresses, and contracts on the public network.
 !!! tip "Expect gaps between blocks"
     Sealing pauses while the network is idle, so block timestamps are not evenly
     spaced. A quiet period is normal — see
-    [On-demand sealing](../03-operating/sealing.md).
+    [Smart Auto Mining](../03-operating/sealing.md).
 
 ## An explorer for your own network
 

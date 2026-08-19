@@ -47,6 +47,16 @@ It's the last upstream release that shipped Clique. There is nothing to rebase
 onto, so we maintain a small patch set on the pinned tag and backport upstream
 fixes selectively.
 
+**Why are there gaps between blocks?**
+[Smart Auto Mining](../03-operating/sealing.md) pauses sealing when nothing is
+pending, so an idle chain produces no blocks. Blocks come about a second apart
+while the network is active. If your app polls for blocks, handle the gaps — a
+quiet chain is healthy, not stalled.
+
+**Is PureChain's design published anywhere?**
+Yes — a peer-reviewed paper from Kumoh National Institute of Technology covers
+SAM, PoA², and the genesis rationale. See [Research](../05-reference/research.md).
+
 **Does the fork change how normal Ethereum chains behave?**
 No. Every patch is gated on `Clique != nil` / `zeroBaseFee` / `IsShanghai`. The
 same binary runs mainnet unchanged.

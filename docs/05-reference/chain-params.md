@@ -40,7 +40,7 @@ activity, and a 25-block span covering several hours across an idle period.
 !!! tip "Don't assume a fixed block interval"
     If your application polls for new blocks or times out waiting for one, handle
     idle gaps. A quiet chain is healthy, not stalled. See
-    [On-demand sealing](../03-operating/sealing.md).
+    [Smart Auto Mining](../03-operating/sealing.md).
 
 ## Active forks
 

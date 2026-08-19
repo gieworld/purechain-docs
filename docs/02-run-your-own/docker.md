@@ -73,7 +73,7 @@ node running with zero peers. See [Peering](../05-reference/peering.md).
 ## Validators
 
 Validators additionally run an automine sidecar sharing the node's `/data` volume
-to reach `geth.ipc`. See [On-demand sealing](../03-operating/sealing.md).
+to reach `geth.ipc`. See [Smart Auto Mining](../03-operating/sealing.md).
 
 !!! danger "Never start all nodes at once"
     Simultaneous starts can split a Clique network before the peer mesh exists.

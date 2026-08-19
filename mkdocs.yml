@@ -80,7 +80,8 @@ nav:
       - Production checklist: 02-run-your-own/production.md
   - Operating a network:
       - Operations: 03-operating/operations.md
-      - On-demand sealing: 03-operating/sealing.md
+      - Smart Auto Mining (SAM): 03-operating/sealing.md
+      - PoA² validator management: 03-operating/poa2.md
       - Troubleshooting: 03-operating/troubleshooting.md
   - The client:
       - purechain-geth: 04-client/purechain-geth.md
@@ -92,6 +93,7 @@ nav:
       - Genesis format: 05-reference/genesis-format.md
       - Peering: 05-reference/peering.md
       - Wallets and apps: 05-reference/wallets.md
+      - Research: 05-reference/research.md
   - Tooling:
       - Explorer: 06-tooling/explorer.md
       - Faucet: 06-tooling/faucet.md

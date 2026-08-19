@@ -16,9 +16,28 @@ same CLI, same JSON-RPC, same tooling (MetaMask, ethers, Hardhat, block explorer
   EIP-4788, blob-carrying transaction plumbing.
 - **Auditability.** ~220 lines across 14 files versus upstream, every hunk gated
   so non-PureChain chains behave identically.
+- **Resource efficiency.** [Smart Auto Mining (SAM)](../03-operating/sealing.md)
+  seals only when there are transactions to process, cutting the empty blocks a
+  continuously-mining PoA chain would otherwise produce.
+- **Validator reliability.** [PoA²](../03-operating/poa2.md) monitors signer
+  activity and automatically replaces inactive validators with pre-vetted
+  standbys.
 - **Permissioned participation.** Peer discovery is off, so every participant is
   provisioned deliberately. Anyone may request a node; validators additionally
   meet a published bar and are voted in by the existing signers.
+
+## The two core innovations
+
+PureChain's design is published in a peer-reviewed paper from Kumoh National
+Institute of Technology — see [Research](../05-reference/research.md).
+
+| | What it does |
+|---|---|
+| **SAM** — Smart Auto Mining | Activates mining only when transactions are pending; pauses when idle. Measured 25.6% storage saving on PoA. |
+| **PoA²** — Proof-of-Authority and Association | Monitors sealer activity over 64-block windows and automatically votes out inactive signers, replacing them from a standby pool. |
+
+Both run **on top of** stock Clique using standard RPC — neither requires a
+consensus change, and neither is part of the client fork.
 
 ## Why a fork exists
 

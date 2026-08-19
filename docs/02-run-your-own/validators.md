@@ -82,7 +82,7 @@ With `--mine`, validators seal continuously — producing **empty blocks forever
 even when idle. Fine for development; wasteful for a long-running network.
 
 The alternative is to drop `--mine` and run a sidecar that starts and stops the
-miner based on activity. See [On-demand sealing](../03-operating/sealing.md).
+miner based on activity. See [Smart Auto Mining](../03-operating/sealing.md).
 
 ## Next
 

@@ -44,7 +44,7 @@ and may be voted out.
 - [ ] `--miner.recommit` matching the current signer set (e.g. `750ms`).
 - [ ] **`--nodiscover`** with static peering only.
 - [ ] **Automine sidecar** for on-demand sealing — validators do **not** pass
-      `--mine`. See [On-demand sealing](../03-operating/sealing.md).
+      `--mine`. See [Smart Auto Mining](../03-operating/sealing.md).
 
 ### Security
 
