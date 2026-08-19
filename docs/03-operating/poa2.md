@@ -40,7 +40,8 @@ Monitor sealer activity  ──▶  Flag inactive signer  ──▶  De-authoriz
    else happens. If it does not, it is rolled back (see
    [phantom standbys](#phantom-standbys)).
 6. **Set update** — only once a working replacement is sealing is the flagged
-   signer de-authorized.
+   signer de-authorized. If the pool is empty the signer is removed anyway, on
+   a smaller set — see [when the pool runs out](#when-the-pool-runs-out).
 
 The order matters: the standby is added **first** and the failed signer removed
 **second**, so the set never dips below its normal size and a bad candidate
@@ -143,6 +144,34 @@ advancing throughout.
 
 That is a safety net, not a licence. Keep the pool accurate: every address in it
 should have a synced, unlocked node running.
+
+## When the pool runs out
+
+Standby pools are finite, and every replacement consumes one. Eventually a
+validator can fail with nothing left to promote.
+
+The intuitive response — leave the dead signer in place and wait for an
+operator — is the **worse** of the two available states. Clique needs
+`floor(n/2) + 1` signers to seal:
+
+| Set | Dead | Healthy | Sealers required | Margin |
+|---|---|---|---|---|
+| 4 signers, dead one left in | 1 | 3 | 3 | **none** — the next failure halts the chain |
+| 3 signers, dead one removed | 0 | 3 | 2 | one spare |
+
+So PoA² **removes the dead signer anyway** and runs on a smaller set. It is not
+giving up; it is the safer configuration, and the log prints the arithmetic so
+it is clear why the set shrank. Before doing so it retries any standby
+previously written off as unreachable — one whose node was down earlier may be
+running now.
+
+The set is never shrunk below **three** signers. At two, both must seal and the
+benefit reverses, so PoA² stops there and reports that operator action is
+required.
+
+!!! danger "Shrinking buys time, it does not replace capacity"
+    A smaller set has fewer signers to lose. Restore a standby — or repair the
+    failed validator — as soon as you see an exhaustion warning.
 
 ## Operating alongside SAM
 
