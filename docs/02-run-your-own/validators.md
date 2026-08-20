@@ -74,7 +74,7 @@ clique.getSigners()                        // current set
 clique.proposals                           // in-flight, on this node
 ```
 
-Changes settle at the next epoch checkpoint.
+A proposal takes effect **immediately**, in the block where the majority is reached. Epoch checkpoint blocks (`clique.epoch`, default 30000) **clear** all in-flight proposals, so a vote that has not reached a majority by then must be re-cast.
 
 ## Optional: on-demand sealing
 

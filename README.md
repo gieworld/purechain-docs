@@ -3,15 +3,13 @@
 Public documentation for **PureChain** — a Clique PoA, zero-fee (gasless)
 EVM network built on a small, auditable fork of go-ethereum v1.13.15.
 
-> **Status:** pre-launch of open source. See
-> [`OPEN_SOURCE_STRATEGY.md`](./OPEN_SOURCE_STRATEGY.md) for what we're publishing,
-> in what order, and why.
+Published at **https://gieworld.github.io/purechain-docs/**
 
 ## What PureChain is
 
 - **Consensus:** Clique Proof-of-Authority (Shanghai + Cancun enabled).
 - **Fees:** zero base fee — transactions are gasless by design.
-- **Client:** `purechain-geth`, a pinned patch set (~150 consensus-critical lines)
+- **Client:** `purechain-geth`, a pinned patch set (~220 lines across 14 files)
   on go-ethereum **v1.13.15**. Not a rebasing fork — upstream removed Clique in v1.14.
 - **Ecosystem:** block explorer and faucet (separate repos).
 
@@ -19,12 +17,13 @@ EVM network built on a small, auditable fork of go-ethereum v1.13.15.
 
 | Section | For |
 |---|---|
-| [Overview](./docs/01-overview/) | What PureChain is, architecture, FAQ |
-| [Run a node](./docs/02-run-a-node/) | Anyone — full / RPC / archive nodes (open) |
-| [Become a validator](./docs/03-become-a-validator/) | Operators applying to join the signer set (gated) |
-| [The client](./docs/04-client/) | `purechain-geth` — what changed and why |
-| [Network](./docs/05-network/) | Genesis, chain params, bootnodes |
+| [Overview](./docs/01-overview/) | What PureChain is, architecture, free gas, FAQ |
+| [Run your own network](./docs/02-run-your-own/) | Genesis, validators, RPC nodes, Docker, production checklist |
+| [Operating a network](./docs/03-operating/) | Operations, SAM, PoA², troubleshooting |
+| [The client](./docs/04-client/) | `purechain-geth` — download, what changed, building |
+| [Reference](./docs/05-reference/) | Chain parameters, genesis format, peering, wallets, research |
 | [Tooling](./docs/06-tooling/) | Explorer, faucet |
+| [Join the public network](./docs/06-join/) | Node access, validator requirements and application |
 | [Contributing](./docs/CONTRIBUTING.md) | How to help |
 
 ## Building the docs locally
@@ -54,15 +53,20 @@ automated via `.github/workflows/docs.yml` on push to `main`.
 ## Quick links
 
 - Docs site: https://gieworld.github.io/purechain-docs/
-- Client (`purechain-geth`): _TBD_
-- Network setup: _TBD_
+- Client (`purechain-geth`): https://github.com/gieworld/purechain_testnet
+- Releases (prebuilt binaries): https://github.com/gieworld/purechain_testnet/releases
+- Genesis generator: `network/gen-genesis.sh` in the client repository
 
 ## Licence
 
-**To be announced.** No licence is granted at this time — all rights reserved
-pending a licensing decision. This documentation is published for reference
-during the pre-release period.
+This documentation is licensed **CC BY 4.0** — see [`LICENSE`](./LICENSE).
+Share and adapt it freely, including commercially, with attribution. Embedded
+code samples may be used without attribution.
 
-The `purechain-geth` client is a fork of
-[go-ethereum](https://github.com/ethereum/go-ethereum) and is licensed
-GPL-3.0 / LGPL-3.0 as upstream.
+Two other licences apply to related work, and the boundaries are deliberate:
+
+| Work | Licence |
+|---|---|
+| This documentation | CC BY 4.0, © PureChain |
+| The `purechain-geth` client | **LGPL-3.0** outside `cmd/`, **GPL-3.0** inside `cmd/` — inherited from [go-ethereum](https://github.com/ethereum/go-ethereum) and not ours to change |
+| SAM and PoA² sidecar scripts | **Apache-2.0, © PureChain** (`LICENSE-purechain` in the client repository) — JavaScript run *by* geth's console, not derivative works of it |

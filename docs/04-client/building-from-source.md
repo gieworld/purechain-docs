@@ -15,7 +15,7 @@ cd purechain_testnet
 
 ## Prerequisites
 
-- Go 1.19 or later, and a C compiler (only needed for CGO builds).
+- Go 1.20 or later (1.21+ recommended), and a C compiler (only needed for CGO builds).
 - git.
 
 ## Recommended — portable static binary

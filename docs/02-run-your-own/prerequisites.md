@@ -18,7 +18,7 @@ Linux is recommended for production. macOS and Windows work for development.
 You need `purechain-geth` — **stock geth will not work**. It panics past the
 Shanghai/Cancun activation, and upstream removed Clique entirely in v1.14.
 
-Build it with Go 1.19+:
+Build it with Go 1.20 or later (1.21+ recommended):
 
 ```bash
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o geth ./cmd/geth

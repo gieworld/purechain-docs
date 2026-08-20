@@ -1,5 +1,10 @@
 # Smart Auto Mining (SAM)
 
+!!! note
+    SAM is licensed **Apache-2.0, © PureChain** (`LICENSE-purechain` in the
+    client repository). It is a sidecar script run *by* geth's console, not a
+    derivative work of go-ethereum.
+
 **Smart Auto Mining (SAM)** is PureChain's sealing policy: mining activates only
 when there are transactions to process, and pauses when the network is idle.
 
@@ -48,7 +53,7 @@ SAM runs as a script attached to the node over IPC, **not** as a client flag.
 Validators run without `--mine`.
 
 ```bash
-geth attach --exec 'loadScript("/scripts/autoMine.js")' /data/geth.ipc
+geth attach --preload /scripts/autoMine-v2.js /data/geth.ipc
 ```
 
 In Docker, a sidecar container sharing the node's data volume:
@@ -61,7 +66,7 @@ In Docker, a sidecar container sharing the node's data volume:
       - ./data/node1:/data      # same volume as the node — for geth.ipc
       - ./scripts:/scripts
     entrypoint: ["geth", "attach", "--exec",
-                 "loadScript(\"/scripts/autoMine.js\")", "/data/geth.ipc"]
+                 "loadScript(\"/scripts/autoMine-v2.js\")", "/data/geth.ipc"]
     restart: unless-stopped
 ```
 

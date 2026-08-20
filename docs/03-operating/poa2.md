@@ -8,6 +8,11 @@ to notice and file a manual proposal.
 It is the second of the two core innovations in the Purechain paper — see
 [Research](../05-reference/research.md).
 
+!!! warning "Rehearsed, not yet run in production"
+    Every figure on this page was measured on a six-node rehearsal network
+    under load. PoA² has **not** yet run on a production PureChain network.
+    Treat it as validated by drill, not battle-tested.
+
 !!! info "PoA² is a controller, not a consensus change"
     It runs **on top of** stock Clique using standard RPC —
     `clique.status().sealerActivity`, `clique.propose()`, `clique.discard()`.
@@ -19,10 +24,10 @@ It is the second of the two core innovations in the Purechain paper — see
 ## How replacement works
 
 ```
-Monitor sealer activity  ──▶  Flag inactive signer  ──▶  De-authorization proposal
-   (64-block windows)            (zero activity)                   │
-                                                                   ▼
-        Signer set updated  ◀──  Majority vote  ◀──  Propose standby validator
+Monitor sealer activity ──▶ Flag suspect ──▶ Confirm it stays silent
+  (trailing 64 blocks)      (zero activity)          │
+                                                     ▼
+   Signer set updated ◀── De-authorize dead ◀── VERIFY it seals ◀── Propose standby (vote)
 ```
 
 1. **Misbehavior detection** — sealer activity is sampled over a **trailing
@@ -58,7 +63,7 @@ Measured on a four-signer network at a one-second period, under load:
 
 | Phase | Measured |
 |---|---|
-| Detect (activity window empties) | ~64 s |
+| Detect (activity window empties) | 64 blocks (~64 s at period 1 while busy) |
 | Confirm (suspect stays silent) | ~120 blocks |
 | Vote + apply | a few seconds |
 | **Total, unreachable validator** | **~195 s** |
@@ -83,6 +88,36 @@ longer — see [below](#down-versus-not-sealing).
   network partition splitting them into groups smaller than `q` — proposals do
   not pass and the signer set does not change until connectivity returns. This is
   the safe failure mode: no change beats a wrong change.
+
+## Running it
+
+PoA² is a sidecar, deployed exactly like [SAM](sealing.md) — one per
+validator, including a standby once it is promoted:
+
+```bash
+geth attach --preload /scripts/poa2.js /data/geth.ipc
+```
+
+in a supervisor loop, so a dropped IPC connection reattaches. Three things must
+be configured in the script before it will work:
+
+| Setting | What it is |
+|---|---|
+| `POOL` | every address that may ever be a validator, current signers first. **Byte-identical on every controller** — selection is order-deterministic, and differing lists mean split votes. |
+| `PEER_TAG` | address → the node's `--identity` string. Required for the down-versus-not-sealing check below; without it that check silently degrades and healthy nodes get replaced. |
+| `TARGET_SIZE` / `MIN_SIZE` | the intended signer count, and the floor below which the set is never shrunk. |
+
+Reference timings: `POLL_S 2`, `CONFIRM_BLOCKS 120`, `PEERED_GRACE_BLOCKS 600`,
+`VERIFY_BLOCKS 60`, `CYCLE_TIMEOUT_BLOCKS 300`.
+
+!!! danger "Do not start PoA² on an idle or freshly restarted chain"
+    Sealer activity is a trailing 64-**block** window, so on a chain that has
+    just restarted it still holds pre-pause history — including validators that
+    were legitimately down then. Let the network seal normally first. Likewise,
+    **stop the controllers during a rolling upgrade** and start them afterwards.
+
+PoA² is licensed **Apache-2.0, © PureChain** (`LICENSE-purechain` in the client
+repository). It is not a derivative work of go-ethereum.
 
 ## The energy trade-off
 
