@@ -32,7 +32,12 @@ const ENDPOINT = "https://chatbot-gieworlds-projects.vercel.app/api/chat";
     });
     t = t.replace(/\*\*([^*]+)\*\*/g, "<strong>$1</strong>");
     t = t.replace(/(^|[^*])\*([^*\n]+)\*/g, "$1<em>$2</em>");
-    return t.replace(/\u0000(\d+)\u0000/g, (_, i) => held[i]);
+    // Placeholders nest (a code span inside a link label), so restore until
+    // none remain. Bounded in case a held string ever looks like a marker.
+    for (let pass = 0; pass < 5 && t.indexOf("\u0000") !== -1; pass++) {
+      t = t.replace(/\u0000(\d+)\u0000/g, (_, i) => held[i]);
+    }
+    return t;
   }
 
   function md(src) {
@@ -142,6 +147,16 @@ const ENDPOINT = "https://chatbot-gieworlds-projects.vercel.app/api/chat";
     if (e.key === "Escape" && !panel.hidden) toggle(false);
   });
 
+  // The API requires the first message to be `user`. history grows by two per
+  // exchange but the user turn is pushed before the fetch, so a plain
+  // slice(-10) starts on an assistant turn from the sixth question on, and
+  // every later request 400s until the page is reloaded.
+  function recentTurns() {
+    const turns = history.slice(-10);
+    while (turns.length && turns[0].role !== "user") turns.shift();
+    return turns;
+  }
+
   form.addEventListener("submit", async (e) => {
     e.preventDefault();
     const q = input.value.trim();
@@ -158,14 +173,14 @@ const ENDPOINT = "https://chatbot-gieworlds-projects.vercel.app/api/chat";
       const r = await fetch(ENDPOINT, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: history.slice(-10) }),
+        body: JSON.stringify({ messages: recentTurns() }),
       });
       const d = await r.json().catch(() => ({}));
       if (!r.ok) throw new Error(d.error || `Request failed (${r.status}).`);
 
       pending.className = "pc-msg pc-bot pc-settled";
       pending.innerHTML = md(d.text || "No answer came back. Try rephrasing the question.");
-      history.push({ role: "assistant", content: d.text || "" });
+      if (d.text && d.text.trim()) history.push({ role: "assistant", content: d.text });
     } catch (err) {
       pending.className = "pc-msg pc-bot pc-err";
       pending.textContent = err.message;
