@@ -63,10 +63,11 @@ This documentation is licensed **CC BY 4.0** — see [`LICENSE`](./LICENSE).
 Share and adapt it freely, including commercially, with attribution. Embedded
 code samples may be used without attribution.
 
-Two other licences apply to related work, and the boundaries are deliberate:
+Related work carries different licences, and the boundaries are deliberate:
 
 | Work | Licence |
 |---|---|
 | This documentation | CC BY 4.0, © PureChain |
+| This repo's own code — chat widget and chatbot backend | **MIT, © PureChain** ([`LICENSE-CODE`](./LICENSE-CODE)) |
 | The `purechain-geth` client | **LGPL-3.0** outside `cmd/`, **GPL-3.0** inside `cmd/` — inherited from [go-ethereum](https://github.com/ethereum/go-ethereum) and not ours to change |
 | SAM and PoA² sidecar scripts | **Apache-2.0, © PureChain** (`LICENSE-purechain` in the client repository) — JavaScript run *by* geth's console, not derivative works of it |

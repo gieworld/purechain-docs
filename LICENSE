@@ -26,6 +26,10 @@ This licence covers the documentation in this repository — the prose, diagrams
 and configuration examples under `docs/`, and the MkDocs configuration that
 builds them.
 
+It does NOT cover the software in this repository: the documentation chatbot
+(`chatbot/`) and the chat widget assets (`docs/assets/`) are licensed MIT.
+See LICENSE-CODE.
+
 It does NOT cover the PureChain execution client, which lives in a separate
 repository and remains under its original go-ethereum licences: LGPL-3.0 for
 the library and GPL-3.0 for the binaries. See
