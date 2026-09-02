@@ -59,6 +59,12 @@ plugins:
           - 04-client/*.md
         Reference:
           - 05-reference/*.md
+        Tooling:
+          - 06-tooling/*.md
+        Join the public network:
+          - 06-join/*.md
+        Contributing:
+          - CONTRIBUTING.md
 
 markdown_extensions:
   - admonition
