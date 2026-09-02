@@ -12,3 +12,6 @@ venv/
 # they contain open-sourcing strategy and the security pre-flight checklist.
 /OPEN_SOURCE_STRATEGY.md
 /PROPOSAL.md
+
+# Wrangler local cache (contains account id/email)
+.wrangler/

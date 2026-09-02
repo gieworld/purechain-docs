@@ -1,5 +1,5 @@
 // Floating docs assistant. Talks to the Cloudflare Worker in ../chatbot/.
-const ENDPOINT = "https://purechain-docs-chat.<your-subdomain>.workers.dev";
+const ENDPOINT = "https://purechain-docs-chat.gifararifharyadi.workers.dev";
 
 (function () {
   if (window.__pcChat) return;
