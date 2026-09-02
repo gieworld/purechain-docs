@@ -1,5 +1,5 @@
 // PureChain docs assistant. Backend lives in ../chatbot/.
-const ENDPOINT = "https://chatbot-gieworlds-projects.vercel.app/api/chat";
+const ENDPOINT = "https://purechain-docs-chat-gieworlds-projects.vercel.app/api/chat";
 
 (function () {
   if (window.__pcChat) return;

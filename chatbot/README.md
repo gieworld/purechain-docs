@@ -4,7 +4,7 @@ Vercel serverless function that answers questions about the docs. The whole
 docs corpus (~30k tokens) goes into a cached system prompt — no RAG, no vector
 store.
 
-- Endpoint: `https://chatbot-gieworlds-projects.vercel.app/api/chat`
+- Endpoint: `https://purechain-docs-chat-gieworlds-projects.vercel.app/api/chat`
 - Widget: `docs/assets/chat.js` (`ENDPOINT` at the top)
 
 ## Deploy
