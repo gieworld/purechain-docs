@@ -126,3 +126,9 @@ copyright: >-
   Copyright &copy; 2026 PureChain —
   documentation licensed <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.
   The execution client is a go-ethereum fork under LGPL-3.0 / GPL-3.0.
+
+extra_javascript:
+  - assets/chat.js
+
+extra_css:
+  - assets/chat.css
