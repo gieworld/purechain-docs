@@ -42,6 +42,22 @@ theme:
 
 plugins:
   - search
+  - llmstxt:
+      markdown_description: >-
+        PureChain — a permissioned, free-gas EVM network on Clique PoA with
+        Shanghai/Cancun, built on a fork of go-ethereum v1.13.15.
+      sections:
+        Overview:
+          - index.md
+          - 01-overview/*.md
+        Run your own network:
+          - 02-run-your-own/*.md
+        Operating a network:
+          - 03-operating/*.md
+        The client:
+          - 04-client/*.md
+        Reference:
+          - 05-reference/*.md
 
 markdown_extensions:
   - admonition
