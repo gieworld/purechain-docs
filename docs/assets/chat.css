@@ -1,23 +1,256 @@
-.pc-chat-btn{position:fixed;right:1.25rem;bottom:1.25rem;z-index:20;width:3rem;height:3rem;border:none;border-radius:50%;
-  background:var(--md-primary-fg-color);color:var(--md-primary-bg-color);font-size:1.25rem;cursor:pointer;
-  box-shadow:0 2px 8px rgba(0,0,0,.3)}
-.pc-chat-btn:hover{filter:brightness(1.1)}
-.pc-chat-panel{position:fixed;right:1.25rem;bottom:5.25rem;z-index:20;display:flex;flex-direction:column;
-  width:min(23rem,calc(100vw - 2.5rem));height:min(30rem,calc(100vh - 8rem));
-  background:var(--md-default-bg-color);color:var(--md-default-fg-color);
-  border:1px solid var(--md-default-fg-color--lightest);border-radius:.5rem;
-  box-shadow:0 4px 20px rgba(0,0,0,.35);overflow:hidden}
-.pc-chat-panel[hidden]{display:none}
-.pc-chat-head{display:flex;justify-content:space-between;align-items:center;padding:.6rem .8rem;
-  background:var(--md-primary-fg-color);color:var(--md-primary-bg-color);font-weight:600;font-size:.8rem}
-.pc-chat-x{background:none;border:none;color:inherit;font-size:1.1rem;cursor:pointer;line-height:1}
-.pc-chat-log{flex:1;overflow-y:auto;padding:.7rem;display:flex;flex-direction:column;gap:.5rem;font-size:.75rem}
-.pc-msg{padding:.45rem .6rem;border-radius:.4rem;white-space:pre-wrap;overflow-wrap:anywhere;max-width:90%}
-.pc-user{align-self:flex-end;background:var(--md-primary-fg-color);color:var(--md-primary-bg-color)}
-.pc-bot{align-self:flex-start;background:var(--md-code-bg-color)}
-.pc-err{color:var(--md-typeset-del-color,#c00)}
-.pc-chat-form{display:flex;gap:.4rem;padding:.6rem;border-top:1px solid var(--md-default-fg-color--lightest)}
-.pc-chat-in{flex:1;min-width:0;padding:.4rem .5rem;font:inherit;font-size:.75rem;border-radius:.3rem;
-  border:1px solid var(--md-default-fg-color--lighter);background:var(--md-default-bg-color);color:inherit}
-.pc-chat-send{padding:.4rem .7rem;font-size:.75rem;border:none;border-radius:.3rem;cursor:pointer;
-  background:var(--md-primary-fg-color);color:var(--md-primary-bg-color)}
+/* PureChain docs assistant.
+   Inherits Material's tokens throughout — the widget is a guest in the docs'
+   design system, not a competing one. Saturation is spent only on the header
+   and the code accent rule. */
+
+:root {
+  --pc-radius: .5rem;
+  --pc-gap: .75rem;
+}
+
+/* --- trigger ---------------------------------------------------------- */
+.pc-chat-btn {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 20;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+  cursor: pointer;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, .25);
+  transition: transform .15s ease, box-shadow .15s ease;
+}
+.pc-chat-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 14px rgba(0, 0, 0, .3); }
+.pc-chat-btn:focus-visible { outline: 2px solid var(--md-accent-fg-color); outline-offset: 3px; }
+.pc-chat-btn:active { transform: translateY(0) scale(.94); }
+.pc-chat-btn > span {
+  grid-area: 1 / 1;
+  display: grid;
+  place-items: center;
+  transition: opacity .18s ease, transform .28s cubic-bezier(.4, 0, .2, 1);
+}
+.pc-chat-btn[aria-expanded="false"] .pc-ico-close,
+.pc-chat-btn[aria-expanded="true"]  .pc-ico-chat {
+  opacity: 0;
+  transform: rotate(-90deg) scale(.6);
+}
+.pc-chat-btn[aria-expanded="true"]  .pc-ico-close,
+.pc-chat-btn[aria-expanded="false"] .pc-ico-chat {
+  opacity: 1;
+  transform: rotate(0) scale(1);
+}
+
+/* --- panel ------------------------------------------------------------ */
+.pc-chat-panel {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 5.25rem;
+  z-index: 20;
+  display: flex;
+  flex-direction: column;
+  width: min(24rem, calc(100vw - 2.5rem));
+  height: min(32rem, calc(100vh - 9rem));
+  overflow: hidden;
+  background: var(--md-default-bg-color);
+  color: var(--md-default-fg-color);
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: var(--pc-radius);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, .22);
+  transform-origin: bottom right;
+  animation: pc-in .22s cubic-bezier(.2, .9, .3, 1.1);
+}
+.pc-chat-panel[hidden] { display: none; }
+.pc-chat-panel.pc-closing { animation: pc-out .14s ease-in forwards; }
+
+@keyframes pc-in  { from { opacity: 0; transform: translateY(.75rem) scale(.97); } }
+@keyframes pc-out { to   { opacity: 0; transform: translateY(.4rem)  scale(.98); } }
+
+.pc-chat-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .5rem;
+  padding: .7rem .85rem;
+  background: var(--md-primary-fg-color);
+  color: var(--md-primary-bg-color);
+  font-size: .78rem;
+  font-weight: 600;
+  letter-spacing: .01em;
+}
+.pc-chat-x {
+  display: grid;
+  place-items: center;
+  width: 1.5rem;
+  height: 1.5rem;
+  padding: 0;
+  border: none;
+  border-radius: .25rem;
+  background: none;
+  color: inherit;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: .85;
+}
+.pc-chat-x { transition: opacity .15s ease, background .15s ease, transform .15s ease; }
+.pc-chat-x:hover { opacity: 1; background: rgba(255, 255, 255, .15); transform: rotate(90deg); }
+.pc-chat-x:focus-visible { outline: 2px solid currentColor; outline-offset: 1px; }
+
+/* --- transcript ------------------------------------------------------- */
+.pc-chat-log {
+  flex: 1;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: var(--pc-gap);
+  display: flex;
+  flex-direction: column;
+  gap: var(--pc-gap);
+  font-size: .75rem;
+  line-height: 1.55;
+}
+
+.pc-msg {
+  max-width: 100%;
+  overflow-wrap: anywhere;
+  animation: pc-msg-in .26s cubic-bezier(.2, .8, .3, 1) both;
+}
+@keyframes pc-msg-in { from { opacity: 0; transform: translateY(.4rem); } }
+
+/* Answer replacing the typing dots: crossfade rather than a hard swap. */
+.pc-msg.pc-settled { animation: pc-settle .3s ease both; }
+@keyframes pc-settle { from { opacity: .3; } }
+
+/* Bot: flush left, no bubble chrome — reads like the docs it quotes. */
+.pc-bot { align-self: stretch; }
+
+/* User: the only tinted surface in the transcript. */
+.pc-user {
+  align-self: flex-end;
+  max-width: 85%;
+  padding: .4rem .6rem;
+  border-radius: var(--pc-radius) var(--pc-radius) .15rem var(--pc-radius);
+  background: var(--md-code-bg-color);
+  color: var(--md-default-fg-color);
+  white-space: pre-wrap;
+}
+
+.pc-err { color: var(--md-typeset-del-color, #d32f2f); }
+
+/* --- rendered markdown ------------------------------------------------ */
+.pc-msg p { margin: 0 0 .5rem; }
+.pc-msg p:last-child { margin-bottom: 0; }
+.pc-msg ul { margin: 0 0 .5rem; padding-left: 1.1rem; }
+.pc-msg ul:last-child { margin-bottom: 0; }
+.pc-msg li { margin: .15rem 0; }
+.pc-msg strong { font-weight: 600; }
+.pc-msg a { color: var(--md-accent-fg-color); text-decoration: underline; text-underline-offset: 2px; }
+.pc-msg a:focus-visible { outline: 2px solid var(--md-accent-fg-color); outline-offset: 2px; }
+
+.pc-msg code {
+  padding: .1em .3em;
+  border-radius: .2rem;
+  background: var(--md-code-bg-color);
+  font-family: var(--md-code-font-family, ui-monospace, monospace);
+  font-size: .92em;
+}
+
+/* The hero element: answers here are usually commands to copy. */
+.pc-msg pre {
+  margin: .5rem 0;
+  padding: .55rem .7rem;
+  overflow-x: auto;
+  background: var(--md-code-bg-color);
+  border-left: 2px solid var(--md-primary-fg-color);
+  border-radius: 0 .25rem .25rem 0;
+}
+.pc-msg pre code { padding: 0; background: none; font-size: .95em; line-height: 1.5; }
+
+/* --- typing indicator ------------------------------------------------- */
+.pc-dots { display: inline-flex; gap: .28rem; padding: .3rem 0; }
+.pc-dots span {
+  width: .35rem;
+  height: .35rem;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: .3;
+  animation: pc-blink 1.2s ease-in-out infinite;
+}
+.pc-dots span:nth-child(2) { animation-delay: .18s; }
+.pc-dots span:nth-child(3) { animation-delay: .36s; }
+@keyframes pc-blink {
+  0%, 65%, 100% { opacity: .25; transform: translateY(0); }
+  30%           { opacity: .9;  transform: translateY(-.16rem); }
+}
+
+/* --- composer --------------------------------------------------------- */
+.pc-chat-form {
+  display: flex;
+  gap: .45rem;
+  padding: .6rem;
+  border-top: 1px solid var(--md-default-fg-color--lightest);
+}
+.pc-chat-in {
+  flex: 1;
+  min-width: 0;
+  padding: .45rem .55rem;
+  font: inherit;
+  font-size: .75rem;
+  color: inherit;
+  background: var(--md-default-bg-color);
+  border: 1px solid var(--md-default-fg-color--lighter);
+  border-radius: .3rem;
+}
+.pc-chat-in::placeholder { color: var(--md-default-fg-color--light); }
+.pc-chat-in { transition: border-color .15s ease, background .15s ease; }
+.pc-chat-in:hover { border-color: var(--md-default-fg-color--light); }
+.pc-chat-in:focus-visible { outline: 2px solid var(--md-accent-fg-color); outline-offset: -1px; border-color: transparent; }
+
+.pc-chat-send {
+  padding: .45rem .8rem;
+  font: inherit;
+  font-size: .75rem;
+  font-weight: 600;
+  color: var(--md-primary-bg-color);
+  background: var(--md-primary-fg-color);
+  border: none;
+  border-radius: .3rem;
+  cursor: pointer;
+}
+.pc-chat-send { transition: filter .15s ease, transform .12s ease; }
+.pc-chat-send:hover:not(:disabled) { filter: brightness(1.08); }
+.pc-chat-send:active:not(:disabled) { transform: scale(.96); }
+.pc-chat-send:disabled { opacity: .5; cursor: default; }
+.pc-chat-send:focus-visible { outline: 2px solid var(--md-accent-fg-color); outline-offset: 2px; }
+
+/* --- small screens: bottom sheet -------------------------------------- */
+@media (max-width: 30rem) {
+  .pc-chat-panel {
+    right: 0; left: 0; bottom: 0;
+    width: 100%;
+    height: min(70vh, 30rem);
+    border-radius: var(--pc-radius) var(--pc-radius) 0 0;
+    border-bottom: none;
+  }
+  .pc-chat-btn { right: 1rem; bottom: 1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pc-chat-panel,
+  .pc-chat-panel.pc-closing,
+  .pc-msg,
+  .pc-msg.pc-settled { animation: none; }
+  .pc-chat-btn,
+  .pc-chat-btn > span,
+  .pc-chat-x,
+  .pc-chat-in,
+  .pc-chat-send { transition: none; }
+  .pc-chat-btn[aria-expanded] > span { transform: none; }
+  .pc-dots span { animation: none; opacity: .5; }
+}
