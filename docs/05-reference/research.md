@@ -1,9 +1,19 @@
 # Research
 
-PureChain comes out of the Networked System Laboratory and the ICT Convergence
-Research Center at **Kumoh National Institute of Technology (KIT)**, Gumi, South
-Korea. This page collects the work that defines the chain, and the systems built
-on it.
+PureChain is built by **[NSLab Co. Ltd](https://nslab.tech/)** with the Networked
+Systems Laboratory and the ICT Convergence Research Center at **Kumoh National
+Institute of Technology (KIT)**, Gumi, South Korea. This page collects the work
+that defines the chain, and the systems built on it.
+
+The ecosystem-level overview is the
+[white paper](https://sites.google.com/view/nslabkorea/technical/purechain_white_paper);
+the papers below cover the mechanisms in depth.
+
+!!! warning "Name collision"
+    An unrelated project also called PureChain — a PUF-based, ledger-free system
+    from KAIST, Kyung Hee University, ICTK Holdings and EpitomeCL — appears in the
+    same search results. It has no miners and no public ledger, and is not related
+    to this work.
 
 ---
 

@@ -4,9 +4,31 @@ PureChain is a **permissioned, free-gas EVM network**. Transactions cost
 **zero** — there is no base fee and no tip — and blocks are produced by a known
 set of validators rather than by open mining or staking.
 
+It is built by **[NSLab Co. Ltd](https://nslab.tech/)** and the Networked Systems
+Laboratory at **Kumoh National Institute of Technology (KIT)**, Gumi, South Korea.
+
 It runs on `purechain-geth`, a fork of **go-ethereum v1.13.15** kept deliberately
 close to upstream, so the client behaves like the geth operators already know:
 same CLI, same JSON-RPC, same tooling (MetaMask, ethers, Hardhat, block explorers).
+
+!!! info "What these docs cover"
+    PureChain's [white paper](https://sites.google.com/view/nslabkorea/technical/purechain_white_paper)
+    describes a five-part ecosystem: two enhancement algorithms (**SAM+** and
+    **PoA²**) and three networks (NSL Layer 2 using zk-rollups, a centralized
+    Layer 2 for industrial use, and the augmented Layer 1).
+
+    **These docs cover the Layer 1 chain and its client** — the part you can run
+    yourself. The Layer 2 networks are outside their scope.
+
+## The problem it targets
+
+The white paper frames blockchain design as a **quad-lemma**: decentralization,
+security, scalability, and **gas cost**. The usual trilemma treats fees as a
+consequence; PureChain treats them as a fourth axis to solve outright, which is
+why the chain is free-gas rather than cheap-gas.
+
+That choice only works because the validator set is permissioned — see
+[Is free gas safe?](free-gas.md#is-free-gas-safe).
 
 ## Design goals
 

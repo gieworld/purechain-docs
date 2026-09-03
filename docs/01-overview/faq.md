@@ -57,6 +57,17 @@ quiet chain is healthy, not stalled.
 Yes — a peer-reviewed paper from Kumoh National Institute of Technology covers
 SAM, PoA², and the genesis rationale. See [Research](../05-reference/research.md).
 
+**Is this the same PureChain as the "ledger-free blockchain"?**
+No — two unrelated projects share the name. This one is NSLab's EVM chain from
+Kumoh National Institute of Technology. The other is a PUF-based, ledger-free
+system from KAIST, Kyung Hee University, ICTK Holdings and EpitomeCL, which has
+no miners and no public ledger. Search results mix the two.
+
+**Who operates the public network?**
+NSLab Co. Ltd, with the Networked Systems Laboratory at Kumoh National Institute
+of Technology. You can also [run your own network](../02-run-your-own/index.md)
+with no involvement from them.
+
 **Does the fork change how normal Ethereum chains behave?**
 No. Every patch is gated on `Clique != nil` / `zeroBaseFee` / `IsShanghai`. The
 same binary runs mainnet unchanged.
