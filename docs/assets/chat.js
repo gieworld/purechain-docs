@@ -142,22 +142,39 @@ const ENDPOINT = "https://purechain-docs-chat-gieworlds-projects.vercel.app/api/
   const addBot = (markdown) => push("pc-bot", md(markdown));
   const addTyping = () => push("pc-bot pc-typing", '<span class="pc-dots"><span></span><span></span><span></span></span>');
 
+  // Small utility icons, sized below the chat/close pair.
+  const icon = (paths) =>
+    '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" ' +
+    'stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + paths + "</svg>";
+  const ICON_COPY = icon('<rect x="9" y="9" width="12" height="12" rx="2"/>' +
+    '<path d="M6 15H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v1"/>');
+  const ICON_CHECK = icon('<path d="M20 6 9 17l-5-5"/>');
+
   // Answers are often something to paste elsewhere, so hand back the original
   // markdown rather than the rendered text.
   function copyButton(raw) {
-    const b = el("button", "pc-copy", "Copy");
+    const b = el("button", "pc-copy", ICON_COPY);
     b.type = "button";
+    const label = (t) => { b.title = t; b.setAttribute("aria-label", t); };
+    label("Copy answer");
     let timer;
+
     b.addEventListener("click", async () => {
       clearTimeout(timer);
       try {
         await navigator.clipboard.writeText(raw);
-        b.textContent = "Copied";
-        b.classList.add("pc-copied");
+        b.innerHTML = ICON_CHECK;
+        b.className = "pc-copy pc-copied";
+        label("Copied");
       } catch {
-        b.textContent = "Copy failed";
+        b.className = "pc-copy pc-copyfail";
+        label("Copy failed — select the text instead");
       }
-      timer = setTimeout(() => { b.textContent = "Copy"; b.classList.remove("pc-copied"); }, 1600);
+      timer = setTimeout(() => {
+        b.innerHTML = ICON_COPY;
+        b.className = "pc-copy";
+        label("Copy answer");
+      }, 1600);
     });
     return b;
   }

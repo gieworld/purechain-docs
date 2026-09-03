@@ -283,24 +283,33 @@
 /* --- copy answer -------------------------------------------------------
    Quiet by default; the message is the content, this is a utility. */
 .pc-copy {
-  display: block;
-  margin: .45rem 0 0 auto;
-  padding: .2rem .45rem;
-  font: inherit;
-  font-size: .65rem;
+  display: grid;
+  place-items: center;
+  width: 1.55rem;
+  height: 1.55rem;
+  margin: .4rem 0 0 auto;
+  padding: 0;
   color: var(--md-default-fg-color--light);
   background: none;
   border: 1px solid var(--md-default-fg-color--lightest);
   border-radius: .25rem;
   cursor: pointer;
-  transition: color .15s ease, border-color .15s ease, background .15s ease;
+  opacity: .7;
+  transition: opacity .15s ease, color .15s ease, border-color .15s ease, background .15s ease;
 }
+.pc-bot:hover .pc-copy { opacity: 1; }
 .pc-copy:hover {
+  opacity: 1;
   color: var(--md-default-fg-color);
   border-color: var(--md-default-fg-color--light);
   background: var(--md-code-bg-color);
 }
-.pc-copy:focus-visible { outline: 2px solid var(--md-accent-fg-color); outline-offset: 2px; }
-.pc-copy.pc-copied { color: var(--md-primary-fg-color); border-color: var(--md-primary-fg-color); }
+.pc-copy:focus-visible { opacity: 1; outline: 2px solid var(--md-accent-fg-color); outline-offset: 2px; }
+.pc-copy.pc-copied {
+  opacity: 1;
+  color: var(--md-primary-fg-color);
+  border-color: var(--md-primary-fg-color);
+}
+.pc-copy.pc-copyfail { opacity: 1; color: var(--md-typeset-del-color, #d32f2f); }
 
 @media (prefers-reduced-motion: reduce) { .pc-copy { transition: none; } }
