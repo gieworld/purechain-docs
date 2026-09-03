@@ -46,13 +46,40 @@ const ENDPOINT = "https://purechain-docs-chat-gieworlds-projects.vercel.app/api/
     let inCode = false, inList = false;
     const closeList = () => { if (inList) { out.push("</ul>"); inList = false; } };
 
-    for (const line of lines) {
+    const cells = (row) => row.trim().replace(/^\||\|$/g, "").split("|").map((c) => c.trim());
+    const isRow = (l) => /^\s*\|.*\|\s*$/.test(l);
+    const isRule = (l) => /^\s*\|[\s:|-]+\|\s*$/.test(l);
+
+    for (let i = 0; i < lines.length; i++) {
+      const line = lines[i];
+
       if (/^\s*```/.test(line)) {
         if (inCode) { out.push("</code></pre>"); inCode = false; }
         else { closeList(); out.push("<pre><code>"); inCode = true; }
         continue;
       }
       if (inCode) { out.push(line + "\n"); continue; }
+
+      // Pipe table: a header row immediately followed by a |---|---| rule.
+      if (isRow(line) && isRule(lines[i + 1] || "")) {
+        closeList();
+        const align = cells(lines[i + 1]).map((s) =>
+          /^:.*:$/.test(s) ? ' style="text-align:center"'
+            : /:$/.test(s) ? ' style="text-align:right"'
+            : "");
+        out.push('<div class="pc-table"><table><thead><tr>');
+        cells(line).forEach((c, n) => out.push("<th" + (align[n] || "") + ">" + inline(c) + "</th>"));
+        out.push("</tr></thead><tbody>");
+        i += 2;
+        for (; i < lines.length && isRow(lines[i]); i++) {
+          out.push("<tr>");
+          cells(lines[i]).forEach((c, n) => out.push("<td" + (align[n] || "") + ">" + inline(c) + "</td>"));
+          out.push("</tr>");
+        }
+        i--;
+        out.push("</tbody></table></div>");
+        continue;
+      }
 
       const li = line.match(/^\s*[-*]\s+(.*)$/);
       if (li) {
@@ -114,6 +141,26 @@ const ENDPOINT = "https://purechain-docs-chat-gieworlds-projects.vercel.app/api/
   const addUser = (text) => { const m = el("div", "pc-msg pc-user"); m.textContent = text; log.append(m); scroll(); return m; };
   const addBot = (markdown) => push("pc-bot", md(markdown));
   const addTyping = () => push("pc-bot pc-typing", '<span class="pc-dots"><span></span><span></span><span></span></span>');
+
+  // Answers are often something to paste elsewhere, so hand back the original
+  // markdown rather than the rendered text.
+  function copyButton(raw) {
+    const b = el("button", "pc-copy", "Copy");
+    b.type = "button";
+    let timer;
+    b.addEventListener("click", async () => {
+      clearTimeout(timer);
+      try {
+        await navigator.clipboard.writeText(raw);
+        b.textContent = "Copied";
+        b.classList.add("pc-copied");
+      } catch {
+        b.textContent = "Copy failed";
+      }
+      timer = setTimeout(() => { b.textContent = "Copy"; b.classList.remove("pc-copied"); }, 1600);
+    });
+    return b;
+  }
 
   function toggle(open) {
     btn.setAttribute("aria-expanded", String(open));
@@ -178,8 +225,10 @@ const ENDPOINT = "https://purechain-docs-chat-gieworlds-projects.vercel.app/api/
       const d = await r.json().catch(() => ({}));
       if (!r.ok) throw new Error(d.error || `Request failed (${r.status}).`);
 
+      const answer = d.text || "No answer came back. Try rephrasing the question.";
       pending.className = "pc-msg pc-bot pc-settled";
-      pending.innerHTML = md(d.text || "No answer came back. Try rephrasing the question.");
+      pending.innerHTML = md(answer);
+      pending.append(copyButton(answer));
       if (d.text && d.text.trim()) history.push({ role: "assistant", content: d.text });
     } catch (err) {
       pending.className = "pc-msg pc-bot pc-err";
