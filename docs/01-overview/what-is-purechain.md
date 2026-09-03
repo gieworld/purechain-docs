@@ -18,7 +18,8 @@ same CLI, same JSON-RPC, same tooling (MetaMask, ethers, Hardhat, block explorer
     Layer 2 for industrial use, and the augmented Layer 1).
 
     **These docs cover the Layer 1 chain and its client** — the part you can run
-    yourself. The Layer 2 networks are outside their scope.
+    yourself. The Layer 2 networks are outside their scope, and the deployed
+    Layer 1 runs **SAM**, not the SAM+ variant the white paper describes.
 
 ## The problem it targets
 

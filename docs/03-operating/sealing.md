@@ -11,6 +11,12 @@ when there are transactions to process, and pauses when the network is idle.
 It is one of the two core innovations described in the Purechain paper — see
 [Research](../05-reference/research.md).
 
+!!! note "SAM, not SAM+"
+    The white paper lists **SAM+ (Smart Auto Mining Plus)** among the ecosystem's
+    enhancement algorithms. The deployed network runs **SAM**, and this page
+    describes SAM. If you are matching the docs against the white paper, that is
+    the difference.
+
 ## Why it exists
 
 A standard Clique validator runs with `--mine` and seals **continuously**,
