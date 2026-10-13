@@ -26,7 +26,7 @@ See [Wallets and apps](wallets.md) to add the network to MetaMask.
 | `eth_gasPrice` | `0x0` |
 | Gas limit | 30,000,000 |
 | EVM version | Shanghai + Cancun |
-| Client | `purechain-geth` v1.13.15-stable |
+| Client | `purechain-geth` v1.0.1 (reports `PureChain/v1.13.15-purechain-1.0.1-…`) |
 
 ## Block production is on-demand
 

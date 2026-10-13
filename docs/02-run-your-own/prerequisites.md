@@ -22,7 +22,7 @@ Build it with Go 1.20 or later (1.21+ recommended):
 
 ```bash
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o geth ./cmd/geth
-./geth version   # -> 1.13.15-stable
+./geth version   # -> 1.13.15-purechain-1.0.1
 ```
 
 That produces a statically linked linux/amd64 binary that runs anywhere,

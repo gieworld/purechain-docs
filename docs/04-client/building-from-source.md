@@ -27,14 +27,14 @@ Linux x86-64, including minimal/Alpine containers:
 ```bash
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -o build/bin/geth-linux-amd64 ./cmd/geth
 ./build/bin/geth-linux-amd64 version
-# -> 1.13.15-stable, Git Commit = your HEAD
+# -> 1.13.15-purechain-1.0.1, Git Commit = your HEAD
 ```
 
 To reproduce a published release exactly, check out its tag first — the binary
 will then stamp the same commit the release reports:
 
 ```bash
-git checkout v1.0.0
+git checkout v1.0.1
 CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -trimpath -o geth ./cmd/geth
 ./geth version   # Git Commit must match the release
 ```

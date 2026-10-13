@@ -16,7 +16,7 @@ Alpine containers.
 ## Install
 
 ```bash
-VERSION=v1.0.0
+VERSION=v1.0.1
 BASE=https://github.com/gieworld/purechain_testnet/releases/download/${VERSION}
 
 curl -LO ${BASE}/purechain-geth-${VERSION}-linux-amd64
@@ -36,8 +36,8 @@ geth version
 `geth version` prints the commit the binary was built from:
 
 ```
-Version: 1.13.15-stable
-Git Commit: 1118041499edb224376d6df7e651b240b620abbd
+Version: 1.13.15-purechain-1.0.1
+Git Commit: 30c665106a8e94be0a9492d1362ab86359724162
 ```
 
 That commit exists in the [client repository](https://github.com/gieworld/purechain_testnet),
@@ -56,7 +56,7 @@ The binary is static, so it drops straight into a minimal image:
 
 ```dockerfile
 FROM alpine:3.20
-COPY purechain-geth-v1.0.0-linux-amd64 /usr/local/bin/geth
+COPY purechain-geth-v1.0.1-linux-amd64 /usr/local/bin/geth
 RUN apk add --no-cache bash ca-certificates
 ENTRYPOINT ["geth"]
 ```
