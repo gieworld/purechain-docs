@@ -6,9 +6,9 @@
 
 ## Where to apply
 
-<!-- TODO: replace with the validator request website link -->
-
-> **Request portal:** _link coming soon_
+> **Validator applications are not open yet.** Start by running a member node:
+> [request node access](node-access.md) through the
+> [request portal](https://purechain-portal-frontend.onrender.com/).
 
 ## What to include
 

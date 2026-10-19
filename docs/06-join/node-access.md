@@ -10,38 +10,39 @@ provisioned for you, so node access goes through a short request.
 
 ## Where to request
 
-<!-- TODO: replace with the node request website link -->
+> **Request portal:** <https://purechain-portal-frontend.onrender.com/>
 
-> **Request portal:** _link coming soon_
+## How it works
 
-## What to include
+1. **Apply** in the portal: organisation, purpose, a technical and a backup
+   contact, and where you'll host the node.
+2. **Get approved.** You are assigned a node name and can download the
+   member-node bundle (Docker, the pinned `purechain-geth`, genesis and peers
+   included).
+3. **Run the bundle** on a Linux x86-64 host with a static public IP, following
+   the step-by-step guide in the portal.
+4. **Register the node**: its public IP(s) and node ID (`./node.sh enode`), plus
+   a first-sync date.
+5. PureChain opens the firewall for your IP, and the portal shows your node as
+   `active` once it is connected.
 
-- **Who you are** and a contact address.
-- **What you need the node for** — app backend, indexing, redundancy, research.
-- **Node type** — full, RPC, or archive.
-- **Your node's enode**, once you have one (`admin.nodeInfo.enode`), or say that
-  you'll supply it after first start.
-
-## What you receive
-
-- The **canonical `genesis.json`** and chain parameters.
-- **Enode(s) to peer with**, and your node added as a static peer on the other side.
-- The **pinned client release** to run.
+PureChain never asks for private keys, keystores, passwords, SSH access or wallet
+addresses. Treat any such request as phishing.
 
 ## What's expected of you
 
 Lightweight compared to [validator requirements](../06-join/validator-requirements.md),
 but these matter:
 
-- Run the **pinned `purechain-geth` release** — stock geth cannot follow this chain.
-- Set **`--txpool.pricelimit 0`**, or your node silently refuses to relay
-  zero-fee transactions.
-- **Don't expose `admin`, `personal`, `debug`, or `miner` RPC publicly** — serve
-  `eth,net,web3` only.
-- **Don't publish the enodes you're given.** Peering details are not public.
+- Run the **bundle as shipped**. It pins the `purechain-geth` release (stock geth
+  cannot follow this chain) and the zero-fee settings.
+- **Don't expose `admin`, `personal`, `debug`, or `miner` RPC publicly**. The
+  bundle serves `eth,net,web3` only, on `127.0.0.1`.
+- **Don't publish the peer details in the bundle.** Peering details are not public.
 
 ## Next
 
-Once approved, follow the [Quickstart](../02-run-your-own/index.md).
+Building your own setup instead of the bundle? See the
+[Quickstart](../02-run-your-own/index.md).
 
 Thinking about validating? See [Become a validator](../06-join/index.md).
